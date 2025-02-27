@@ -16,7 +16,5 @@ dependencies = [
 serve = { cmd = "mkdocs serve", help = "Starts server." }
 deploy = { cmd = "mkdocs gh-deploy", help = "Deploy static files to gh-pages." }
 
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry]
+package-mode = false
