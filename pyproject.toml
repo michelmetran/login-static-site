@@ -13,7 +13,8 @@ dependencies = [
 ]
 
 [tool.taskipy.tasks]
-serve = { cmd = "mkdocs serve", help = "Starts server" }
+serve = { cmd = "mkdocs serve", help = "Starts server." }
+deploy = { cmd = "mkdocs gh-deploy", help = "Deploy static files to gh-pages." }
 
 
 [build-system]
