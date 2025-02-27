@@ -1,0 +1,47 @@
+name: Publish documentation (branch gh-pages)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'poetry.lock'
+
+jobs:
+  publish_documentation_on_github_pages:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.13.1
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git user
+        uses: fregante/setup-git-user@v2
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.0.1
+
+      - name: Publish Documentation
+        run: |
+          poetry install
+          poetry run task deploy
+
+      - name: Workflow failure notification
+        uses: JasonEtco/create-an-issue@v2
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          filename: .github/workflow_publish_gh_pages_failure.md
