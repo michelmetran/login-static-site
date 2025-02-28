@@ -3,19 +3,32 @@ FROM quay.io/oauth2-proxy/oauth2-proxy AS base
 # Use an intermediate image to install Python, pipx, and poetry
 FROM python:3.11 AS builder
 
+# Install dependencies
+RUN apt update && apt install -y curl git build-essential libssl-dev zlib1g-dev \
+    && curl https://pyenv.run | bash
+
+# Set up pyenv environment
+ENV PYENV_ROOT="/root/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+ENV PATH="/root/.local/bin:$PATH"
+
+# Install Python based on .python-version
+COPY .python-version /mkdocs/
+WORKDIR /mkdocs
+RUN pyenv install --skip-existing $(cat .python-version) \
+    && pyenv global $(cat .python-version)
+
 # Install pipx and poetry
 RUN python -m pip install --upgrade pip \
     && pip install --user pipx \
-    && python -m pipx ensurepath \
     && pipx install poetry
 
 # Set up MkDocs project
 WORKDIR /mkdocs
-COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-dev
+COPY . ./
+RUN poetry install
 
-# Copy MkDocs source and build site
-COPY docs/ docs/
+# Build site
 RUN poetry run mkdocs build -d /site_output
 
 # Final image
