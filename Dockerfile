@@ -12,9 +12,11 @@ ENV PYENV_ROOT="/root/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 ENV PATH="/root/.local/bin:$PATH"
 
-# Install Python based on .python-version
-COPY .python-version /mkdocs/
+# Create Workdir
 WORKDIR /mkdocs
+COPY . ./
+
+# Install Python based on .python-version
 RUN pyenv install --skip-existing $(cat .python-version) \
     && pyenv global $(cat .python-version)
 
@@ -24,8 +26,6 @@ RUN python -m pip install --upgrade pip \
     && pipx install poetry
 
 # Set up MkDocs project
-WORKDIR /mkdocs
-COPY . ./
 RUN poetry install
 
 # Build site
