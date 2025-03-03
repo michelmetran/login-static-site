@@ -1,4 +1,4 @@
-name: Publish documentation (branch gh-pages)
+name: Publish documentation (site gh-pages)
 
 on:
   workflow_dispatch:
@@ -39,13 +39,17 @@ jobs:
       - name: Publish Documentation
         run: |
           poetry install
-          poetry run task deploy
-          git checkout gh-pages
+          poetry run task build
+          git checkout render-pages
+          git pull origin render-pages
           git checkout main Dockerfile
           git checkout main email_list.txt
           git checkout main render.yaml
-          git commit -m "Update access files"
-          git push origin gh-pages
+          COMMIT_HASH=$(git rev-parse --short main)
+          MKDOCS_VERSION=$(mkdocs --version | awk '{print $3}')
+          COMMIT_MESSAGE="Deployed $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+          git commit -am "$COMMIT_MESSAGE"
+          git push origin render-pages
 
       - name: Workflow failure notification
         uses: JasonEtco/create-an-issue@v2

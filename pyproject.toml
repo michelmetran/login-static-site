@@ -14,7 +14,7 @@ dependencies = [
 
 [tool.taskipy.tasks]
 serve = { cmd = "mkdocs serve", help = "Starts server." }
-deploy = { cmd = "mkdocs gh-deploy", help = "Deploy static files to gh-pages." }
+build = { cmd = "mkdocs build", help = "Deploy static files to gh-pages." }
 docker_build = { cmd = "docker build --no-cache -t my-mkdocs-site .", help = "Builds docker image locally." }
 docker_run = { cmd = "docker run --rm -p 8080:4180 my-mkdocs-site", help = "Runs docker container locally." }
 
