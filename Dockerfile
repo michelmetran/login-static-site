@@ -1,7 +1,7 @@
 FROM quay.io/oauth2-proxy/oauth2-proxy
 
 # Copy generated site from the gh-pages branch
-COPY . /app/
+COPY site /app/
 
 # Copy email list configuration
 COPY email_list.txt /site_config/
