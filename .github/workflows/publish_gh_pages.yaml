@@ -1,4 +1,4 @@
-name: Publish documentation (site gh-pages)
+name: Publish documentation on Render
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
       - 'render.yaml'
 
 jobs:
-  publish_documentation_on_github_pages:
+  publish_documentation_on_render:
     runs-on: ubuntu-latest
     steps:
 
