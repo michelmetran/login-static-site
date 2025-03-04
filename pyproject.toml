@@ -14,6 +14,7 @@ dependencies = [
 
 [tool.taskipy.tasks]
 serve = { cmd = "mkdocs serve", help = "Starts server." }
+build = { cmd = "mkdocs build", help = "Deploy static files to site/ folder." }
 
 [tool.poetry]
 package-mode = false
