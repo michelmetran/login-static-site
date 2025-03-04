@@ -45,8 +45,9 @@ jobs:
           poetry run task build
           git add -f site/
           git commit -m "$COMMIT_MESSAGE"
-          git checkout render-pages
-          git pull origin render-pages
+          git switch --orphan render-pages || true
+          git checkout render-pages || true
+          git pull origin render-pages || true
           git checkout main site
           git checkout main .github
           git checkout main Dockerfile
