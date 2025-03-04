@@ -39,7 +39,7 @@ jobs:
       - name: Publish Documentation
         run: |
           poetry install
-          MKDOCS_VERSION=$(mkdocs --version | awk '{print $3}')
+          MKDOCS_VERSION=$(poetry run mkdocs --version | awk '{print $3}')
           COMMIT_HASH=$(git rev-parse --short HEAD)
           COMMIT_MESSAGE="Build site $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
           poetry run task build
