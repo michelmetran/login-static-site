@@ -10,7 +10,5 @@ ENTRYPOINT ["/bin/oauth2-proxy", \
             "--provider", "github", \
             "--upstream", "file:///app/#/", \
             "--authenticated-emails-file", "/site_config/email_list.txt", \
-            "--prefer-email-to-user=true", \
-            "--email-domain=*", \
             "--cookie-expire=0h0m30s", \
             "--skip-provider-button=true"]
