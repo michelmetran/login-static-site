@@ -18,5 +18,5 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Nova sessão
 
-    Testa publicação da página - Novo build5
+    Testa publicação da página - Novo build6
     See https://github.com/meadapt/integra-contador/issues/5
