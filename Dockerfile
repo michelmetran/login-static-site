@@ -9,7 +9,7 @@ COPY email_list.txt /site_config/
 ENTRYPOINT ["/bin/oauth2-proxy", \
             "--provider", "github", \
             "--upstream", "file:///app/#/", \
-            "--authenticated-emails-file", "/site_config/email_list.txt", \
+            "--email-domain=*", \
             "--github-user=gabrielbdornas,raianecardoso", \
             "--cookie-expire=0h0m30s", \
             "--skip-provider-button=true"]
