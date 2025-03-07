@@ -64,8 +64,7 @@ To enable authentication, you need to create an OAuth App on GitHub:
 
 ### 4. Deploy the Web Service on Render
 
-1. Go to [Render](https://render.com/) and create a new **Web Service**.
-1. Select a new Blueprint.
+1. Go to [Render](https://render.com/) and create a new **Blueprint** instance.
 1. Connect it to your GitHub repository.
 1. Select the `render-pages` branch.
 1. Set up the environment variables:
