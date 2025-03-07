@@ -15,7 +15,7 @@ The main goal is to help users who need authentication for their static document
 
 ## How It Works
 
-1. The static site is built using [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) ((my favorite theme and static site generator).
+1. The static site is built using [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) (my favorite theme and static site generator).
 1. A GitHub Actions workflow automatically built the static files of our site to a branch called `render-pages`.
 1. The OAuth2 Proxy is used to add authentication in front of the static site.
 1. I suggest the [Render](https://render.com/) web service to handle the authentication and serve the protected content[^2].
