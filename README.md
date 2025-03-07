@@ -5,16 +5,17 @@ The main goal is to help users who need authentication for their static document
 
 ## Notes
 
-- Since the static site will be protected by login, I recommend keeping your repository private.
 - This example repository is public for demonstration purposes only.
+- Since the static site will be protected by login, I recommend keeping your repository private.
 - This example uses [GitHub](https://github.com/meadapt/login-static-site/blob/d05929e78e072117c978eb018f2e1f693a7c9d40/Dockerfile#L10) as the [Oauth provider](https://oauth2-proxy.github.io/oauth2-proxy/configuration/providers/github).
+- The pages will be secure with an email whitelist.
 - The authorized GitHub users' emails must be included in the [`email_list.txt`](https://github.com/meadapt/login-static-site/blob/main/email_list.txt) file.
 - This project uses [Poetry](https://python-poetry.org/) for dependency management, but you can use any package management tool you prefer.
 - Make sure to update your `mkdocs.yml` and OAuth2 Proxy configuration to fit your specific needs.
 
 ## How It Works
 
-1. The static site is built using [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+1. The static site is built using [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) ((my favorite theme and static site generator).
 1. A GitHub Actions workflow automatically built the static files of our site to a branch called `render-pages`.
 1. The OAuth2 Proxy is used to add authentication in front of the static site.
 1. I suggest the [Render](https://render.com/) web service to handle the authentication and serve the protected content[^2].
