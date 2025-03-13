@@ -70,7 +70,7 @@ To enable authentication, you need to create an OAuth App on GitHub:
 1. Set up the environment variables:
    - `OAUTH2_PROXY_CLIENT_ID=<your_github_client_id>`.
    - `OAUTH2_PROXY_CLIENT_SECRET=<your_github_client_secret>`.
-   - `OAUTH2_PROXY_COOKIE_SECRET=<random_32_byte_secret>` (Generate one using `openssl rand -base64 32`)[^3].
+   - `OAUTH2_PROXY_COOKIE_SECRET=<random_32_byte_secret>` (Generate one using `python -c "import secrets; print(secrets.token_urlsafe(32))"`)[^3].
 1. Deploy your service.
 
 Once deployed, your site will be protected, requiring a GitHub login to access it.
