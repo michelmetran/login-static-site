@@ -7,6 +7,15 @@ requires-python = ">=3.13.1"
 dependencies = []
 
 [dependency-groups]
+dev = [
+    # https://pypi.org/project/notebook/
+    'notebook>=7.4.5',
+]
 docs = [
-    "mkdocs-material[imaging]>=9.6.22",
+    # https://pypi.org/project/mkdocs/
+    'mkdocs>=1.6.1',
+    # https://pypi.org/project/mkdocs-jupyter/
+    'mkdocs-jupyter>=0.25.1',
+    # https://pypi.org/project/mkdocs-material/
+    'mkdocs-material[imaging]>=9.6.20',
 ]
