@@ -56,7 +56,7 @@ build:
             # https://github.com/astral-sh/uv/issues/10074
             - pip install uv
             - UV_PROJECT_ENVIRONMENT=$READTHEDOCS_VIRTUALENV_PATH uv sync --all-extras --group docs --link-mode=copy
-            - echo "$UV_PROJECT_ENVIRONMENT"
+            - echo $UV_PROJECT_ENVIRONMENT
 
         build:
             html:
