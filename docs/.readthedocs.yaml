@@ -60,11 +60,16 @@ build:
         build:
             html:
                 - echo "Building HTML"
+                
+                # 1. Adicione a pasta 'bin' ao PATH
+                - export PATH=$READTHEDOCS_VIRTUALENV_PATH/bin:$PATH
+                - export PATH=$READTHEDOCS_VIRTUALENV_PATH:$PATH
+
                 #- mkdir -p $READTHEDOCS_OUTPUT/html/
                 #- echo "Hello world!" > $READTHEDOCS_OUTPUT/html/index.html
                 # 2. Executar o Build do MkDocs (obrigatório se você quer gerar a documentação)
                 # Usamos 'uv run' porque as dependências MkDocs estão instaladas com o uv!
-                - $READTHEDOCS_VIRTUALENV_PATH/bin/uv run mkdocs build --config-file mkdocs.yml
+                - uv run mkdocs build --config-file mkdocs.yml
 
                 # 3. Mover/Copiar a saída para o local correto
                 # O RTD espera que os arquivos HTML estejam em $READTHEDOCS_OUTPUT/html/
