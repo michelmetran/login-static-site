@@ -75,8 +75,8 @@ To enable authentication, you need to create an OAuth App on GitHub:
 
 Once deployed, your site will be protected, requiring a GitHub login to access it.
 
-
 ## License
+
 This project is for educational purposes and does not provide any warranty or guarantees.
 
 [^1]: Issues like [this](https://github.com/squidfunk/mkdocs-material/discussions/5050) and [this](https://github.com/squidfunk/mkdocs-material/issues/3854) were studied before this solution.

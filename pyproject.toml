@@ -1,20 +1,12 @@
 [project]
-name = "integra-contador"
+name = "test"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Gabriel Dornas",email = "gabrielbdornas@gmail.com"}
-]
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13.1,<4.0"
-dependencies = [
-    "mkdocs-material (>=9.6.5,<10.0.0)",
-    "taskipy (>=1.14.1,<2.0.0)"
+requires-python = ">=3.13.1"
+dependencies = []
+
+[dependency-groups]
+docs = [
+    "mkdocs-material[imaging]>=9.6.22",
 ]
-
-[tool.taskipy.tasks]
-serve = { cmd = "mkdocs serve", help = "Starts server." }
-build = { cmd = "mkdocs build", help = "Deploy static files to site/ folder." }
-
-[tool.poetry]
-package-mode = false
