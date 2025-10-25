@@ -12,6 +12,3 @@ ENTRYPOINT ["/bin/oauth2-proxy", \
     "--authenticated-emails-file", "/site_config/email_list.txt", \
     "--cookie-expire=0h0m30s", \
     "--skip-provider-button=true"]
-
-
-    
