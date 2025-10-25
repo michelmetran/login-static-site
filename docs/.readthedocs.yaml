@@ -45,7 +45,7 @@ build:
             - echo "Instalação do Go concluída. O binário está em $GOPATH/bin"
             
             # Verifique se o binário está disponível para depuração
-            - which oauth2-proxy
+            #- which oauth2-proxy
 
             # Install dependencies
             #- poetry install --with docs
