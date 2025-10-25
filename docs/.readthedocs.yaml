@@ -14,7 +14,7 @@ build:
     os: ubuntu-24.04
     tools:
         python: "3.11"
-        golang: "1.17"
+        golang: "1.22"
 
     # https://browniebroke.com/blog/2022-11-21-specify-docs-dependency-groups-with-poetry-and-read-the-docs/
     # https://docs.readthedocs.com/platform/stable/config-file/v2.html#build-jobs
@@ -46,7 +46,6 @@ build:
             
             # Verifique se o binário está disponível para depuração
             - which oauth2-proxy
-
 
             # Install dependencies
             #- poetry install --with docs
