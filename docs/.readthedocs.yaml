@@ -39,6 +39,15 @@ build:
             #- poetry install --with docs
 
         post_install:
+            # Comando para instalar o oauth2-proxy
+            - echo "Iniciando a instalação do Go: oauth2-proxy"
+            - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
+            - echo "Instalação do Go concluída. O binário está em $GOPATH/bin"
+            
+            # Verifique se o binário está disponível para depuração
+            - which oauth2-proxy
+
+            
             # Install dependencies
             #- poetry install --with docs
             # https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-1992286540
@@ -63,11 +72,9 @@ build:
         #         - mkdir -p $READTHEDOCS_OUTPUT/epub/
         #         - echo "Hello world!" > $READTHEDOCS_OUTPUT/epub/index.epub
 
-
 # Build documentation with Mkdocs
 mkdocs:
     configuration: mkdocs.yml
-
 # # Optionally, but recommended,
 # # declare the Python requirements required to build your documentation
 # # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
