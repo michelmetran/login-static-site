@@ -64,7 +64,7 @@ build:
                 #- echo "Hello world!" > $READTHEDOCS_OUTPUT/html/index.html
                 # 2. Executar o Build do MkDocs (obrigatório se você quer gerar a documentação)
                 # Usamos 'uv run' porque as dependências MkDocs estão instaladas com o uv!
-                - uv run mkdocs build --config-file mkdocs.yml
+                - $READTHEDOCS_VIRTUALENV_PATH uv run mkdocs build --config-file mkdocs.yml
 
                 # 3. Mover/Copiar a saída para o local correto
                 # O RTD espera que os arquivos HTML estejam em $READTHEDOCS_OUTPUT/html/
