@@ -5,13 +5,13 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "docs/**"
-    #   - "mkdocs.yml"
-    #   - "poetry.lock"
-    #   - "Dockerfile"
-    #   #- "email_list.txt"
-    #   - "render.yaml"
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "uv.lock"
+      - "Dockerfile"
+      #- "email_list.txt"
+      - "render.yaml"
 
 jobs:
   publish_documentation_on_render:
