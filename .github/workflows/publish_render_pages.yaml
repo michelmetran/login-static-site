@@ -62,6 +62,9 @@ jobs:
           MKDOCS_VERSION=$(uv run mkdocs --version | awk '{print $3}')
           COMMIT_HASH=$(git rev-parse --short HEAD)
           COMMIT_MESSAGE="Build site $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+
+      - name: Publish Documentation2
+        run: |          
           uv run mkdocs build
           git add -f site/
           git commit -m "$COMMIT_MESSAGE"
@@ -73,6 +76,10 @@ jobs:
           git checkout main Dockerfile
           git checkout main docs/email_list.txt
           git checkout main render.yaml
+
+      - name: Publish Documentation3
+        run: |
+
           COMMIT_MESSAGE="Deployed render-pages $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
           git commit -am "$COMMIT_MESSAGE"
           git push origin render-pages
