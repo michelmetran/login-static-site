@@ -43,7 +43,7 @@ build:
             - echo "Iniciando a instalação do Go oauth2-proxy"
             - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
             - echo "Instalação do Go concluída. O binário está em $GOPATH/bin"
-            
+
             # Verifique se o binário está disponível para depuração
             #- which oauth2-proxy
 
@@ -57,11 +57,25 @@ build:
             - pip install uv
             - UV_PROJECT_ENVIRONMENT=$READTHEDOCS_VIRTUALENV_PATH uv sync --all-extras --group docs --link-mode=copy
 
-        # build:
-        #     html:
-        #         - echo "Building HTML"
-        #         - mkdir -p $READTHEDOCS_OUTPUT/html/
-        #         - echo "Hello world!" > $READTHEDOCS_OUTPUT/html/index.html
+        build:
+            html:
+                - echo "Building HTML"
+                #- mkdir -p $READTHEDOCS_OUTPUT/html/
+                #- echo "Hello world!" > $READTHEDOCS_OUTPUT/html/index.html
+                # 2. Executar o Build do MkDocs (obrigatório se você quer gerar a documentação)
+                # Usamos 'uv run' porque as dependências MkDocs estão instaladas com o uv!
+                - uv run mkdocs build --config-file mkdocs.yml
+
+                # 3. Mover/Copiar a saída para o local correto
+                # O RTD espera que os arquivos HTML estejam em $READTHEDOCS_OUTPUT/html/
+                - mkdir -p $READTHEDOCS_OUTPUT/html/
+
+                # Assumindo que o MkDocs gerou para a pasta 'site'
+                - cp -r site/* $READTHEDOCS_OUTPUT/html/
+
+                # dddd
+                - /bin/oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true
+
         #     pdf:
         #         - echo "Building PDF"
         #         - mkdir -p $READTHEDOCS_OUTPUT/pdf/
