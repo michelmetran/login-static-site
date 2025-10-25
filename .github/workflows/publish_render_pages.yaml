@@ -39,13 +39,13 @@ jobs:
         run: uv lock
 
       - name: Install the project
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras
 
       - name: Build
         run: uv build
 
-      - name: Publish
-        run: uv publish -t ${{ secrets.PYPI_TOKEN }}
+      # - name: Publish
+      #   run: uv publish -t ${{ secrets.PYPI_TOKEN }}
 
       - name: Setup Git user
         uses: fregante/setup-git-user@v2
