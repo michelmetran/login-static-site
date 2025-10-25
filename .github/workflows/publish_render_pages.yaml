@@ -57,10 +57,10 @@ jobs:
           git commit -am "$COMMIT_MESSAGE"
           git push origin render-pages
 
-      - name: Workflow failure notification
-        uses: JasonEtco/create-an-issue@v2
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          filename: .github/workflow_publish_render_pages_failure.md
+      # - name: Workflow failure notification
+      #   uses: JasonEtco/create-an-issue@v2
+      #   if: failure()
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   with:
+      #     filename: .github/workflow_publish_render_pages_failure.md
