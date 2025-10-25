@@ -1,0 +1,123 @@
+name: Publish documentation on Render
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "uv.lock"
+      - "Dockerfile"
+      #- "email_list.txt"
+      - "render.yaml"
+
+jobs:
+  publish_documentation_on_render:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/actions/checkout
+      - name: Check out repository
+        uses: actions/checkout@v4
+        # with:
+        #   fetch-depth: 0
+
+      # https://github.com/actions/setup-python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # python-version: "3.13.1"
+          #python-version: "3.11"
+          python-version-file: ".python-version"
+
+      # https://github.com/astral-sh/setup-uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Lock UV dependencies
+        run: uv lock
+
+      - name: Install the project
+        run: |
+          uv sync --locked --all-extras --dev
+          uv sync --group docs --group dev
+
+      # - name: Build
+      #   run: uv build
+
+      # - name: Publish
+      #   run: uv publish -t ${{ secrets.PYPI_TOKEN }}
+
+      - name: Setup Git user
+        uses: fregante/setup-git-user@v2
+
+      # - name: Install Poetry
+      #   uses: snok/install-poetry@v1
+      #   with:
+      #     version: 2.0.1
+
+      - name: Build and Publish Documentation
+        run: |
+          # 1. Defina suas variáveis (do seu step 1)
+          # Elas agora existem durante todo este step 'run'
+          MKDOCS_VERSION=$(uv run mkdocs --version | awk '{print $3}')
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_MESSAGE_BUILD="Build site $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+
+          # 2. Rode o build (do seu step 2)
+          uv run mkdocs build
+          git add -f site/
+          git commit -m "$COMMIT_MESSAGE_BUILD"
+
+          # 3. Continue os comandos Git (do seu step 2)
+          git switch --orphan render-pages || true
+          git checkout render-pages || true
+          git pull origin render-pages || true
+          git checkout main site
+          git checkout main .github
+          git checkout main Dockerfile
+          git checkout main docs/email_list.txt
+          git checkout main render.yaml
+
+          # 4. Rode o commit e push final (do seu step 3)
+          COMMIT_MESSAGE_DEPLOY="Deployed render-pages $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+          git commit -am "$COMMIT_MESSAGE_DEPLOY"
+          git push origin render-pages
+
+      # - name: Publish Documentation
+      #   run: |
+      #     #poetry install
+      #     ## uv sync
+      #     MKDOCS_VERSION=$(uv run mkdocs --version | awk '{print $3}')
+      #     COMMIT_HASH=$(git rev-parse --short HEAD)
+      #     COMMIT_MESSAGE="Build site $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+
+      # - name: Publish Documentation2
+      #   run: |
+      #     uv run mkdocs build
+      #     git add -f site/
+      #     git commit -m "$COMMIT_MESSAGE"
+      #     git switch --orphan render-pages || true
+      #     git checkout render-pages || true
+      #     git pull origin render-pages || true
+      #     git checkout main site
+      #     git checkout main .github
+      #     git checkout main Dockerfile
+      #     git checkout main docs/email_list.txt
+      #     git checkout main render.yaml
+
+      # - name: Publish Documentation3
+      #   run: |
+
+      #     COMMIT_MESSAGE="Deployed render-pages $COMMIT_HASH with MkDocs version: $MKDOCS_VERSION"
+      #     git commit -am "$COMMIT_MESSAGE"
+      #     git push origin render-pages
+
+      # - name: Workflow failure notification
+      #   uses: JasonEtco/create-an-issue@v2
+      #   if: failure()
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   with:
+      #     filename: .github/workflow_publish_render_pages_failure.md
