@@ -10,7 +10,7 @@ on:
       - "mkdocs.yml"
       - "poetry.lock"
       - "Dockerfile"
-      - "email_list.txt"
+      #- "email_list.txt"
       - "render.yaml"
 
 jobs:
