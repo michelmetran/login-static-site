@@ -12,3 +12,6 @@ services:
         sync: false
       - key: OAUTH2_PROXY_HTTP_ADDRESS
         value: ":10000"
+
+
+
