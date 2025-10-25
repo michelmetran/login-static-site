@@ -3,7 +3,7 @@
 This repository provides an example of how to protect an MkDocs Material static site behind a login page using [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/).
 The main goal is to help users who need authentication for their static documentation sites[^1].
 
-
+ewew
 
 ## Notes
 
