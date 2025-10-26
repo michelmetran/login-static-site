@@ -101,7 +101,7 @@ build:
                 - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
                 # dddd
-                - $GOPATH/bin/oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true
+                #- $GOPATH/bin/oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true
 
         #     pdf:
         #         - echo "Building PDF"
