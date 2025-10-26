@@ -71,6 +71,7 @@ build:
             html:
                 - echo "Building HTML"
 
+
                 # 1. Adicione a pasta 'bin' ao PATH
                 - export PATH=$READTHEDOCS_VIRTUALENV_PATH/bin:$PATH
                 - export PATH=$READTHEDOCS_VIRTUALENV_PATH:$PATH
@@ -87,6 +88,17 @@ build:
 
                 # Assumindo que o MkDocs gerou para a pasta 'site'
                 - cp -r site/* $READTHEDOCS_OUTPUT/html/
+
+                # 1. ATIVAR o ambiente Go (CRUCIAL!)
+                # Define $GOPATH/bin no PATH para comandos Go funcionarem corretamente.
+                # O Read the Docs cria o $GOPATH em /home/docs/go
+                - export PATH=$PATH:/home/docs/go/bin
+
+                # 2. Iniciar o serviço (usando o binário que agora está no PATH)
+                # O comando agora pode chamar 'oauth2-proxy' diretamente.
+                - nohup oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true &
+                - OAUTH_PROXY_PID=$!
+                - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
                 # dddd
                 - $GOPATH/bin/oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true
