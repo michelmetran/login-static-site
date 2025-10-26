@@ -96,7 +96,7 @@ build:
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
                 # O comando agora pode chamar 'oauth2-proxy' diretamente.
-                - nohup oauth2-proxy --provider github --upstream file:///app/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true &
+                - nohup oauth2-proxy --provider github --upstream file:///$READTHEDOCS_OUTPUT/html//#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true &
                 - OAUTH_PROXY_PID=$!
                 - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
