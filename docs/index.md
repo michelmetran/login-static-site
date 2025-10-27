@@ -1,4 +1,4 @@
-# Welcome to MkDocs Testeszxzxzxz
+# Welcome to MkDocs Michel
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
