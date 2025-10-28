@@ -22,19 +22,12 @@ build:
     jobs:
         pre_create_environment:
             - echo "Command run at 'pre_create_environment' step"
-
-        create_environment:
             - asdf plugin add uv
             - asdf install uv latest
             - asdf global uv latest
-            - UV_PROJECT_ENVIRONMENT=$READTHEDOCS_VIRTUALENV_PATH uv sync --all-extras --group docs
 
-        install:
-            - "true"
-
-        post_build:
-            - echo "Command run at 'post_build' step"
-            - echo `date`
+        create_environment:
+            - uv venv "${READTHEDOCS_VIRTUALENV_PATH}"
 
         post_create_environment:
             # Install Poetry
@@ -46,6 +39,10 @@ build:
             #- poetry config virtualenvs.create false
             #- echo "Command run at 'pre_create_environment' step"
             #- poetry install --with docs
+
+        install:
+            # - "true"
+            - UV_PROJECT_ENVIRONMENT=$READTHEDOCS_VIRTUALENV_PATH uv sync --all-extras --group docs
 
         post_install:
             # Comando para instalar o oauth2-proxy
@@ -71,10 +68,9 @@ build:
             html:
                 - echo "Building HTML"
 
-
                 # 1. Adicione a pasta 'bin' ao PATH
                 - export PATH=$READTHEDOCS_VIRTUALENV_PATH/bin:$PATH
-                - export PATH=$READTHEDOCS_VIRTUALENV_PATH:$PATH
+                #- export PATH=$READTHEDOCS_VIRTUALENV_PATH:$PATH
 
                 #- mkdir -p $READTHEDOCS_OUTPUT/html/
                 #- echo "Hello world!" > $READTHEDOCS_OUTPUT/html/index.html
@@ -92,6 +88,7 @@ build:
                 # 1. ATIVAR o ambiente Go (CRUCIAL!)
                 # Define $GOPATH/bin no PATH para comandos Go funcionarem corretamente.
                 # O Read the Docs cria o $GOPATH em /home/docs/go
+                - echo $GOPATH
                 - export PATH=$PATH:/home/docs/go/bin
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
@@ -111,6 +108,9 @@ build:
         #         - echo "Building ePub"
         #         - mkdir -p $READTHEDOCS_OUTPUT/epub/
         #         - echo "Hello world!" > $READTHEDOCS_OUTPUT/epub/index.epub
+        post_build:
+            - echo "Command run at 'post_build' step"
+            - echo `date`
 
 # Build documentation with Mkdocs
 mkdocs:
