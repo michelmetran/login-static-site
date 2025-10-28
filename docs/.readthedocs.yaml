@@ -21,10 +21,13 @@ build:
     # Possible problems Some users may require to pass some additional flags or install from a ppa.
     jobs:
         pre_create_environment:
+            # Python
             - echo "Command run at 'pre_create_environment' step"
             - asdf plugin add uv
             - asdf install uv latest
             - asdf global uv latest
+
+            # Go
 
         create_environment:
             - uv venv "${READTHEDOCS_VIRTUALENV_PATH}"
@@ -33,7 +36,7 @@ build:
             # Install Poetry
             #- pip install poetry
             #- python -m pip install poetry
-            - echo `date`
+            #- echo `date`
 
             # Tell Poetry to not use a virtual environment
             #- poetry config virtualenvs.create false
@@ -43,20 +46,19 @@ build:
 
             # 1. Configura GOPATH no ambiente de build
             # O HOME no RTD é o /home/docs. O GOPATH padrão é $HOME/go.
-            - export GOPATH=$HOME/go
+            #- export GOPATH=$HOME/go
 
             # 2. Adiciona o diretório dos binários do Go ao PATH
-            - export PATH=$PATH:$GOPATH/bin
+            #- export PATH=$PATH:$GOPATH/bin
 
             # 3. Instala o oauth2-proxy. Agora o 'go' deve estar no PATH.
             - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
 
             # O Read the Docs cria o $GOPATH em /home/docs/go
-            - echo $GOPATH
-            - echo $GOROOT
+            #- echo $GOPATH
+            #- echo $GOROOT
             #- cd /usr/local/go && ls -la
             - go version
-            
 
             # Verifique se o binário está disponível para depuração
             - which go
@@ -124,7 +126,11 @@ build:
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
                 # O comando agora pode chamar 'oauth2-proxy' diretamente.
-                - nohup oauth2-proxy --provider github --upstream file:///$READTHEDOCS_OUTPUT/html/#/ --authenticated-emails-file /site_config/email_list.txt --cookie-expire=0h0m30s --skip-provider-button=true &
+                - ./oauth2-proxy --provider github \
+                    --upstream file:///$READTHEDOCS_OUTPUT/html/#/ \
+                    --authenticated-emails-file /site_config/email_list.txt \
+                    --cookie-expire=0h0m30s \
+                    --skip-provider-button=true
                 - OAUTH_PROXY_PID=$!
                 - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
