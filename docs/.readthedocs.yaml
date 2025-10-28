@@ -53,7 +53,7 @@ build:
 
             # 4. Verifica se o binário foi instalado corretamente
             - echo "Verificando se oauth2-proxy está no PATH:"
-            - which oauth2-proxy
+            - oauth2-proxy
 
         install:
             # - "true"
