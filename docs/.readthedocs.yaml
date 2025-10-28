@@ -51,6 +51,16 @@ build:
             # 3. Instala o oauth2-proxy. Agora o 'go' deve estar no PATH.
             - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
 
+            # O Read the Docs cria o $GOPATH em /home/docs/go
+            - echo $GOPATH
+            - echo $GOROOT
+            #- cd /usr/local/go && ls -la
+            - go version
+            - export PATH=$PATH:/home/docs/go/bin
+
+            # Verifique se o binário está disponível para depuração
+            - which go
+
             # 4. Verifica se o binário foi instalado corretamente
             - echo "Verificando se oauth2-proxy está no PATH:"
             - echo $PATH
