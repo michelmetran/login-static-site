@@ -39,6 +39,21 @@ build:
             #- poetry config virtualenvs.create false
             #- echo "Command run at 'pre_create_environment' step"
             #- poetry install --with docs
+            - echo "Instalando oauth2-proxy..."
+
+            # 1. Configura GOPATH no ambiente de build
+            # O HOME no RTD é o /home/docs. O GOPATH padrão é $HOME/go.
+            - export GOPATH=$HOME/go
+
+            # 2. Adiciona o diretório dos binários do Go ao PATH
+            - export PATH=$PATH:$GOPATH/bin
+
+            # 3. Instala o oauth2-proxy. Agora o 'go' deve estar no PATH.
+            - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
+
+            # 4. Verifica se o binário foi instalado corretamente
+            - echo "Verificando se oauth2-proxy está no PATH:"
+            - which oauth2-proxy
 
         install:
             # - "true"
@@ -47,7 +62,7 @@ build:
         post_install:
             # Comando para instalar o oauth2-proxy
             - echo "Iniciando a instalação do Go oauth2-proxy"
-            - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
+            #- go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
             - echo "Instalação do Go concluída. O binário está em $GOPATH/bin"
 
             # Verifique se o binário está disponível para depuração
