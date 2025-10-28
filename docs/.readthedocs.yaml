@@ -90,7 +90,8 @@ build:
                 # O Read the Docs cria o $GOPATH em /home/docs/go
                 - echo $GOPATH
                 - echo $GOROOT
-                - cd /usr/local/go && ls -la
+                #- cd /usr/local/go && ls -la
+                - go version
                 - export PATH=$PATH:/home/docs/go/bin
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
@@ -112,7 +113,7 @@ build:
         #         - echo "Hello world!" > $READTHEDOCS_OUTPUT/epub/index.epub
         post_build:
             - echo "Command run at 'post_build' step"
-            - echo `date`
+            #- echo `date`
 
 # Build documentation with Mkdocs
 mkdocs:
