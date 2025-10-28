@@ -56,10 +56,12 @@ build:
             - echo $GOROOT
             #- cd /usr/local/go && ls -la
             - go version
-            - export PATH=$PATH:/home/docs/go/bin
+            
 
             # Verifique se o binário está disponível para depuração
             - which go
+
+            - export PATH=$PATH:/home/docs/.asdf/shims/go
 
             # 4. Verifica se o binário foi instalado corretamente
             - echo "Verificando se oauth2-proxy está no PATH:"
