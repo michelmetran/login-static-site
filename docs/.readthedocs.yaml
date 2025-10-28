@@ -47,7 +47,9 @@ build:
             # 1. Configura GOPATH no ambiente de build
             # O HOME no RTD é o /home/docs. O GOPATH padrão é $HOME/go.
             #- export GOPATH=$HOME/go
-
+            #- cd /usr/local/go && ls -la
+            - go version
+            
             # 2. Adiciona o diretório dos binários do Go ao PATH
             #- export PATH=$PATH:$GOPATH/bin
 
@@ -68,7 +70,7 @@ build:
             # 4. Verifica se o binário foi instalado corretamente
             - echo "Verificando se oauth2-proxy está no PATH:"
             - echo $PATH
-            - oauth2-proxy
+            - ./oauth2-proxy
 
         install:
             # - "true"
@@ -118,11 +120,11 @@ build:
                 # 1. ATIVAR o ambiente Go (CRUCIAL!)
                 # Define $GOPATH/bin no PATH para comandos Go funcionarem corretamente.
                 # O Read the Docs cria o $GOPATH em /home/docs/go
-                - echo $GOPATH
-                - echo $GOROOT
+                #- echo $GOPATH
+                #- echo $GOROOT
                 #- cd /usr/local/go && ls -la
-                - go version
-                - export PATH=$PATH:/home/docs/go/bin
+                #- go version
+                #- export PATH=$PATH:/home/docs/go/bin
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
                 # O comando agora pode chamar 'oauth2-proxy' diretamente.
