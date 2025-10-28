@@ -89,6 +89,8 @@ build:
                 # Define $GOPATH/bin no PATH para comandos Go funcionarem corretamente.
                 # O Read the Docs cria o $GOPATH em /home/docs/go
                 - echo $GOPATH
+                - echo $GOROOT
+                - cd /usr/local/go && ls -la
                 - export PATH=$PATH:/home/docs/go/bin
 
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
