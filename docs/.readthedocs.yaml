@@ -28,6 +28,9 @@ build:
             - asdf global uv latest
 
             # Go
+            - asdf plugin add golang
+            - asdf install golang latest
+            - asdf global golang latest
 
         create_environment:
             - uv venv "${READTHEDOCS_VIRTUALENV_PATH}"
@@ -49,7 +52,7 @@ build:
             #- export GOPATH=$HOME/go
             #- cd /usr/local/go && ls -la
             - go version
-            
+
             # 2. Adiciona o diretório dos binários do Go ao PATH
             #- export PATH=$PATH:$GOPATH/bin
 
@@ -129,10 +132,10 @@ build:
                 # 2. Iniciar o serviço (usando o binário que agora está no PATH)
                 # O comando agora pode chamar 'oauth2-proxy' diretamente.
                 - ./oauth2-proxy --provider github \
-                    --upstream file:///$READTHEDOCS_OUTPUT/html/#/ \
-                    --authenticated-emails-file /site_config/email_list.txt \
-                    --cookie-expire=0h0m30s \
-                    --skip-provider-button=true
+                  --upstream file:///$READTHEDOCS_OUTPUT/html/#/ \
+                  --authenticated-emails-file /site_config/email_list.txt \
+                  --cookie-expire=0h0m30s \
+                  --skip-provider-button=true
                 - OAUTH_PROXY_PID=$!
                 - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
