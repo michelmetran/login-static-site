@@ -28,7 +28,7 @@ build:
             - asdf global uv latest
 
             # Go
-            - asdf plugin add golang
+            #- asdf plugin add golang
             - asdf install golang latest
             - asdf global golang latest
 
@@ -65,14 +65,14 @@ build:
             # O Read the Docs cria o $GOPATH em /home/docs/go
             #- echo $GOPATH
             #- echo $GOROOT
-            #- cd /usr/local/go && ls -la
+            - cd /home/docs/.asdf/shims/go && ls -la
             # - go version
             - export PATH=$PATH:/home/docs/.asdf/shims/go
 
             # 4. Verifica se o binário foi instalado corretamente
             #- echo "Verificando se oauth2-proxy está no PATH:"
             - echo $PATH
-            - docker run quay.io/oauth2-proxy/oauth2-proxy:latest
+            #- docker run quay.io/oauth2-proxy/oauth2-proxy:latest
             - oauth2-proxy
 
         install:
