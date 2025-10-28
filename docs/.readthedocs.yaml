@@ -56,6 +56,9 @@ build:
             # 2. Adiciona o diretório dos binários do Go ao PATH
             #- export PATH=$PATH:$GOPATH/bin
 
+            # Verifique se o binário está disponível para depuração
+            - which go
+
             # 3. Instala o oauth2-proxy. Agora o 'go' deve estar no PATH.
             - go install github.com/oauth2-proxy/oauth2-proxy/v7@latest
 
@@ -63,16 +66,13 @@ build:
             #- echo $GOPATH
             #- echo $GOROOT
             #- cd /usr/local/go && ls -la
-            - go version
-
-            # Verifique se o binário está disponível para depuração
-            - which go
-
+            # - go version
             - export PATH=$PATH:/home/docs/.asdf/shims/go
 
             # 4. Verifica se o binário foi instalado corretamente
-            - echo "Verificando se oauth2-proxy está no PATH:"
+            #- echo "Verificando se oauth2-proxy está no PATH:"
             - echo $PATH
+            - docker run quay.io/oauth2-proxy/oauth2-proxy:latest
             - oauth2-proxy
 
         install:
@@ -136,6 +136,7 @@ build:
                   --authenticated-emails-file /site_config/email_list.txt \
                   --cookie-expire=0h0m30s \
                   --skip-provider-button=true
+
                 - OAUTH_PROXY_PID=$!
                 - echo "OAuth2 Proxy iniciado com PID $OAUTH_PROXY_PID"
 
